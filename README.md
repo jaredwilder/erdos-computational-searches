@@ -1,7 +1,10 @@
 # erdos-computational-searches
 
-Two computational attacks on open Erdos problems that produced **bounds and a reduction, not
-closures**, published with their full receipts, their source code, and their own negative results.
+**An exhaustion frontier at 4.646x10^11 for Erdos 850 and an exact parity-split reduction for
+Erdos 273**, with full receipts and source.
+
+Both are bounds and reductions rather than closures, and each carries the prior-art verdict and the
+negative results that came with it.
 
 Author: Jared Wilder. First public timestamp: 2026-09-10.
 
