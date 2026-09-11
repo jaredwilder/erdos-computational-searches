@@ -1,54 +1,60 @@
 # erdos-computational-searches
 
-**An exhaustion frontier at 4.646x10^11 for Erdos 850 and an exact parity-split reduction for
-Erdos 273**, with full receipts and source.
-
-Both are bounds and reductions rather than closures, and each carries the prior-art verdict and the
-negative results that came with it.
+**An exhaustion frontier at 464,637,500,000 for Erdős 850 and an exact parity-split reduction for
+Erdős 273**, with full receipts, source code, controls, and prior-art reconciliation.
 
 Author: Jared Wilder. First public timestamp: 2026-09-10.
 
-## Erdos 850 - radical coincidences
+## Erdős 850 — radical coincidences
 
-Question: do there exist x != y with rad(x+i) = rad(y+i) for i = 0, 1, 2?
+Question: do there exist `x != y` with `rad(x+i) = rad(y+i)` for `i = 0,1,2`?
 
-**Result: no witness pair with max(x, y) <= 464,637,500,000.** 539,687,500,000 candidates
-scanned. Verdict in the master receipt is `NO_WITNESS_TO_FRONTIER`.
+**Computed result: no witness pair with `max(x,y) <= 464,637,500,000`.** The run scanned
+**539,687,500,000 candidates** and records verdict `NO_WITNESS_TO_FRONTIER`.
 
-The receipt states its own limit and this README repeats it verbatim:
+The search uses a difference-lemma prune. For a witness,
 
-> Exhaustion to N is COMPUTATION evidence of a bound, NEVER closure of the negative branch.
-> Only a verified witness closes anything.
+`L_k(n) = rad(n ... n+k-1)`
 
-Method: a difference-lemma prune. For a witness, L_k(n) = rad(n..n+k-1) divides y - x and
-L_k(x) = L_k(y), which with x < y <= N forces L_k(n) to be small. Collisions are detected
-globally across all segments in one sorted structure, not per segment. Source is the C sieve in
-`erdos850/scripts/`. Controls reproduced a prior independent brute force to 30,000,000.
+must divide `y-x`, and `L_k(x)=L_k(y)`; with `x<y<=N`, this forces `L_k(n)` into a small range.
+Collisions are detected globally across all segments in one sorted structure. Source is the C sieve
+under `erdos850/scripts/`. Controls reproduce an earlier independent brute force to 30,000,000.
 
-**A negative result is included and it is the honest headline of this lane.**
-`erdos850/abc/PRIOR-ART-VERDICT-2026-09-02.md` records that the conditional theorem this campaign
-was about to formalize - that abc implies only finitely many such pairs - is **already published**:
-Langevin 1993, restated 1996 and 2016, and stated on the Erdos 850 problem page itself. The
-verdict is `RECORDED`, the Lean work was **not** run, and the file says in its own words: *"Our
-sketch is a correct rediscovery, not a discovery."*
+### Scope of the computation
 
-## Erdos 273 - covering systems
+The quantified statement established here is exactly the finite frontier above. The receipt carries
+that boundary explicitly; values beyond it are not inferred from the exhaustion.
 
-An exact parity-split reduction: two disjoint distinct-moduli coverings drawn from
-H = {(p-1)/2}. `erdos273/DENSITY-CURVE.md` carries the density curve, the ladder table, and the
-CNF encodings.
+### Prior-art reconciliation
 
-**Semantics, fixed and repeated in every receipt:** UNSAT at N means no covering exists with all
-moduli dividing 2N. That is a bound. **It is never a refutation of the problem.**
+`erdos850/abc/PRIOR-ART-VERDICT-2026-09-02.md` records that the conditional theorem the campaign was
+about to formalize — that `abc` implies only finitely many such pairs — was already published by
+Langevin (1993), with later restatements. The campaign therefore records that route as a correct
+rediscovery and did not spend a Lean formalization on it.
 
-Recorded honestly in this lane: fifteen ladder rungs died by density, the joint two-half CNFs did
-not settle, and a correction is on the record that an earlier claim about a 600 second failure had
-no receipt because the instance had never been built.
+That prior-art result is separate from the much larger finite search frontier above.
 
-## What neither of these is
+## Erdős 273 — covering systems
 
-Neither closes its problem. Both are open. What is published here is the search, the code, the
-receipts, the exact frontier reached, and the places the approach failed.
+The repository records an **exact parity-split reduction** to two disjoint distinct-moduli coverings
+drawn from
+
+`H = {(p-1)/2}`.
+
+`erdos273/DENSITY-CURVE.md` carries the density curve, ladder table, and CNF encodings.
+
+The finite semantics are explicit: UNSAT at `N` means no covering exists with all moduli dividing
+`2N`. Fifteen ladder rungs die by density; the joint two-half CNFs remain the unresolved finite
+subproblem in this lane.
+
+A correction is also preserved for an earlier claimed 600-second failure whose instance had never
+actually been built.
+
+## Evidence package
+
+Both lanes publish the search code, receipts, exact finite boundary, controls, and route history.
+The mathematical claims are therefore the frontier and reduction stated above, not stronger
+unquantified conclusions.
 
 ## License
 
