@@ -5,6 +5,18 @@ Erdős 273**, with full receipts, source code, controls, and prior-art reconcili
 
 Author: Jared Wilder. First public timestamp: 2026-09-10.
 
+## Focused problem repositories
+
+The two research programs now have their own reading surfaces, with exact
+source copies, mathematical summaries, controls and correction history:
+
+- [Erdős #850: radical coincidences](https://github.com/jaredwilder/erdos850-radical-coincidences)
+- [Erdős #273: covering systems](https://github.com/jaredwilder/erdos273-covering-systems)
+
+Use those repositories to follow either problem. This combined repository
+retains the original public research record.
+
+
 ## Erdős 850 — radical coincidences
 
 Question: do there exist `x != y` with `rad(x+i) = rad(y+i)` for `i = 0,1,2`?
