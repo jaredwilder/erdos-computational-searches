@@ -1,73 +1,59 @@
-# erdos-computational-searches
+# Erdős computational searches
 
-**An exhaustion frontier at 464,637,500,000 for Erdős 850 and an exact parity-split reduction for
-Erdős 273**, with full receipts, source code, controls, and prior-art reconciliation.
+Two exact finite research programs: a large search for radical coincidences in Erdős #850 and a parity reduction with SAT/search data for Erdős #273.
 
-Author: Jared Wilder. First public timestamp: 2026-09-10.
+The subject-level repositories are:
 
-## Focused problem repositories
+- [`erdos850-radical-coincidences`](https://github.com/jaredwilder/erdos850-radical-coincidences)
+- [`erdos273-covering-systems`](https://github.com/jaredwilder/erdos273-covering-systems)
 
-The two research programs now have their own reading surfaces, with exact
-source copies, mathematical summaries, controls and correction history:
+This repository retains the combined source code, receipts, and historical computation record.
 
-- [Erdős #850: radical coincidences](https://github.com/jaredwilder/erdos850-radical-coincidences)
-- [Erdős #273: covering systems](https://github.com/jaredwilder/erdos273-covering-systems)
+## Erdős #850 — radical coincidences
 
-Use those repositories to follow either problem. This combined repository
-retains the original public research record.
+The question is whether distinct `x,y` can satisfy
 
+\[
+\operatorname{rad}(x+i)=\operatorname{rad}(y+i),
+\qquad i=0,1,2.
+\]
 
-## Erdős 850 — radical coincidences
+The recorded exhaustive search finds no such pair with
 
-Question: do there exist `x != y` with `rad(x+i) = rad(y+i)` for `i = 0,1,2`?
+\[
+\boxed{\max(x,y)\le464{,}637{,}500{,}000}.
+\]
 
-**Computed result: no witness pair with `max(x,y) <= 464,637,500,000`.** The run scanned
-**539,687,500,000 candidates** and records verdict `NO_WITNESS_TO_FRONTIER`.
+The computation scanned 539,687,500,000 candidates.
 
-The search uses a difference-lemma prune. For a witness,
+The main prune is the divisor identity
 
-`L_k(n) = rad(n ... n+k-1)`
+\[
+\operatorname{rad}(x(x+1)\cdots(x+k-1))\mid y-x
+\]
 
-must divide `y-x`, and `L_k(x)=L_k(y)`; with `x<y<=N`, this forces `L_k(n)` into a small range.
-Collisions are detected globally across all segments in one sorted structure. Source is the C sieve
-under `erdos850/scripts/`. Controls reproduce an earlier independent brute force to 30,000,000.
+for any matching length-`k` pair. Since `0<y-x<N`, this sharply restricts the possible radical products before collision testing.
 
-### Scope of the computation
+The C implementation is under `erdos850/scripts/`. Independent small-range controls reproduce the expected collision data before the large run is trusted.
 
-The quantified statement established here is exactly the finite frontier above. The receipt carries
-that boundary explicitly; values beyond it are not inferred from the exhaustion.
+A conditional `abc` finiteness route was found to be prior art (Langevin, 1993), so the distinct result here is the finite search frontier and the structural pruning used to reach it.
 
-### Prior-art reconciliation
+## Erdős #273 — covering systems
 
-`erdos850/abc/PRIOR-ART-VERDICT-2026-09-02.md` records that the conditional theorem the campaign was
-about to formalize — that `abc` implies only finitely many such pairs — was already published by
-Langevin (1993), with later restatements. The campaign therefore records that route as a correct
-rediscovery and did not spend a Lean formalization on it.
+Every permitted modulus has the form `p-1` and is even. Splitting the integers by parity and dividing by two reduces the problem to two disjoint coverings whose half-moduli lie in
 
-That prior-art result is separate from the much larger finite search frontier above.
+\[
+H=\{(p-1)/2:p\text{ prime},\ p\ge5\}.
+\]
 
-## Erdős 273 — covering systems
+This equivalence underlies the finite SAT ladder.
 
-The repository records an **exact parity-split reduction** to two disjoint distinct-moduli coverings
-drawn from
+For a finite rung `N`, an UNSAT certificate means that no solution exists whose original moduli all divide `2N`. Density calculations eliminate fifteen rungs before SAT is needed; the joint two-half instances form the remaining finite search problem in this lane.
 
-`H = {(p-1)/2}`.
+The exact reduction, density curve, and corrected search history are now presented in [`erdos273-covering-systems`](https://github.com/jaredwilder/erdos273-covering-systems).
 
-`erdos273/DENSITY-CURVE.md` carries the density curve, ladder table, and CNF encodings.
+## Scope
 
-The finite semantics are explicit: UNSAT at `N` means no covering exists with all moduli dividing
-`2N`. Fifteen ladder rungs die by density; the joint two-half CNFs remain the unresolved finite
-subproblem in this lane.
+The #850 result is an exhaustive finite exclusion through the displayed boundary. The #273 result is an exact reduction plus finite exclusions. Neither computation is extrapolated beyond its proven range.
 
-A correction is also preserved for an earlier claimed 600-second failure whose instance had never
-actually been built.
-
-## Evidence package
-
-Both lanes publish the search code, receipts, exact finite boundary, controls, and route history.
-The mathematical claims are therefore the frontier and reduction stated above, not stronger
-unquantified conclusions.
-
-## License
-
-Apache-2.0.
+Author: Jared Wilder. License: Apache-2.0.
